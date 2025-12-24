@@ -96,9 +96,10 @@ import java.net.URI;
                       }
                 """
         ),
-    }
+    },
+    aliases = "io.kestra.plugin.notifications.zulip.ZulipIncomingWebhook"
 )
-public class ZulipIncomingWebhook extends AbstractHttpOptionsTask {
+public class ZulipIncomingWebhook extends AbstractZulipConnection {
     @Schema(
         title = "Zulip incoming webhook URL",
         description = "Check the <a href=\"https://zulip.com/api/incoming-webhooks-overview\">Incoming Webhook Integrations</a> documentation for more details."

@@ -52,7 +52,8 @@ import java.util.Map;
                         prefix: true
                 """
         )
-    }
+    },
+    aliases = "io.kestra.plugin.notifications.zulip.ZulipExecution"
 )
 public class ZulipExecution extends ZulipTemplate implements ExecutionInterface {
     @Builder.Default
