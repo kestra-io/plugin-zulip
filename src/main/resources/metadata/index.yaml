@@ -1,8 +1,8 @@
-group: io.kestra.plugin.template
-name: "template"
-title: "Template"
-description: "Plugin template for Kestra"
-body: ""
+group: io.kestra.plugin.zulip
+name: "zulip"
+title: "Zulip"
+description: "Tasks that send messages to Zulip streams or users."
+body: "Provide Zulip server URL, email/API key, stream/topic or user targets, and message content to post notifications from Kestra workflows."
 videos: []
 createdBy: "Kestra Core Team"
 managedBy: "Kestra Core Team"
