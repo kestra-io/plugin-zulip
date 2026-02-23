@@ -25,8 +25,8 @@ import java.net.URI;
 @Getter
 @NoArgsConstructor
 @Schema(
-    title = "Send a Zulip message using an Incoming Webhook.",
-    description = "Add this task to send direct Zulip notifications. Check the <a href=\"https://api.zulip.com/messaging/webhooks\">Zulip documentation</a> for more details."
+    title = "Post messages through Zulip incoming webhook",
+    description = "Renders the payload then POSTs it to a [Zulip incoming webhook URL](https://api.zulip.com/messaging/webhooks). Provide the full integration URL (includes API key) via a secret and adjust headers/timeouts through `options`. The task does not retry or raise on non-200 responses; monitor logs if delivery fails."
 )
 @Plugin(
     examples = {
@@ -72,7 +72,7 @@ import java.net.URI;
                 """
         ),
         @Example(
-            title = "Send a Zulip message via incoming webhook with a blocks argument, read more on blocks <a href=\"https://api.zulip.com/reference/block-kit/blocks\">here</a>.",
+            title = "Send a Zulip message via incoming webhook with a blocks argument, read more on [blocks](https://api.zulip.com/reference/block-kit/blocks).",
             full = true,
             code = """
                 id: zulip_incoming_webhook
@@ -102,14 +102,15 @@ import java.net.URI;
 public class ZulipIncomingWebhook extends AbstractZulipConnection {
     @Schema(
         title = "Zulip incoming webhook URL",
-        description = "Check the <a href=\"https://zulip.com/api/incoming-webhooks-overview\">Incoming Webhook Integrations</a> documentation for more details."
+        description = "Full incoming webhook URL (integration path and API key); render from a secret. See [Incoming Webhook Integrations](https://zulip.com/api/incoming-webhooks-overview) for formats."
     )
     @PluginProperty(dynamic = true)
     @NotEmpty
     private String url;
 
     @Schema(
-        title = "Zulip message payload"
+        title = "Zulip message payload",
+        description = "Rendered JSON body sent as-is to the incoming webhook; follow Zulip payload schema for your integration."
     )
     protected Property<String> payload;
 
