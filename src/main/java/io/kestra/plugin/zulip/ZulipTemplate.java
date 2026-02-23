@@ -24,33 +24,38 @@ import java.util.Objects;
 @NoArgsConstructor
 public abstract class ZulipTemplate extends ZulipIncomingWebhook {
     @Schema(
-        title = "Zulip channel to send the message to"
+        title = "Channel destination",
+        description = "Optional stream or topic to target; overrides channel defined in the rendered template."
     )
     protected Property<String> channel;
 
     @Schema(
-        title = "Author of the zulip message"
+        title = "Message author",
+        description = "Overrides the displayed sender name for this message."
     )
     protected Property<String> username;
 
     @Schema(
-        title = "Url of the icon to use"
+        title = "Icon URL",
+        description = "HTTP URL for avatar shown with the message; ignored if emoji is set."
     )
     protected Property<String> iconUrl;
 
     @Schema(
-        title = "Emoji icon to use"
+        title = "Icon emoji",
+        description = "Emoji code to display as avatar instead of an image URL."
     )
     protected Property<String> iconEmoji;
 
     @Schema(
-        title = "Template to use",
+        title = "Template resource",
         hidden = true
     )
     protected Property<String> templateUri;
 
     @Schema(
-        title = "Map of variables to use for the message template"
+        title = "Template variables",
+        description = "Key-value map rendered into the Pebble template before sending."
     )
     protected Property<Map<String, Object>> templateRenderMap;
 

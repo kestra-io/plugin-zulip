@@ -27,8 +27,8 @@ import java.util.Map;
 @NoArgsConstructor
 public abstract class AbstractZulipConnection extends Task implements RunnableTask<VoidOutput> {
     @Schema(
-        title = "Options",
-        description = "The options to set to customize the HTTP client"
+        title = "HTTP client options",
+        description = "Tune headers, charsets, and timeouts used by the Zulip HTTP calls. Leave empty to use Kestra defaults."
     )
     @PluginProperty(dynamic = true)
     protected RequestOptions options;
@@ -68,32 +68,50 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
     @Getter
     @Builder
     public static class RequestOptions {
-        @Schema(title = "The time allowed to establish a connection to the server before failing.")
+        @Schema(
+            title = "Connect timeout",
+            description = "Duration to open the TCP connection before failing."
+        )
         private final Property<Duration> connectTimeout;
 
-        @Schema(title = "The maximum time allowed for reading data from the server before failing.")
+        @Schema(
+            title = "Read timeout",
+            description = "Max time to read data before failing; default 10s."
+        )
         @Builder.Default
         private final Property<Duration> readTimeout = Property.ofValue(Duration.ofSeconds(10));
 
-        @Schema(title = "The time allowed for a read connection to remain idle before closing it.")
+        @Schema(
+            title = "Read idle timeout",
+            description = "Allowed idle time on an open read connection before closing; default 5 minutes."
+        )
         @Builder.Default
         private final Property<Duration> readIdleTimeout = Property.ofValue(Duration.of(5, ChronoUnit.MINUTES));
 
-        @Schema(title = "The time an idle connection can remain in the client's connection pool before being closed.")
+        @Schema(
+            title = "Connection pool idle timeout",
+            description = "How long an idle pooled connection stays open before eviction; default 0s."
+        )
         @Builder.Default
         private final Property<Duration> connectionPoolIdleTimeout = Property.ofValue(Duration.ofSeconds(0));
 
-        @Schema(title = "The maximum content length of the response.")
+        @Schema(
+            title = "Max response size",
+            description = "Maximum response body size in bytes; default 10 MB."
+        )
         @Builder.Default
         private final Property<Integer> maxContentLength = Property.ofValue(1024 * 1024 * 10);
 
-        @Schema(title = "The default charset for the request.")
+        @Schema(
+            title = "Default charset",
+            description = "Charset used when none is provided by the response; default UTF-8."
+        )
         @Builder.Default
         private final Property<Charset> defaultCharset = Property.ofValue(StandardCharsets.UTF_8);
 
         @Schema(
             title = "HTTP headers",
-            description = "HTTP headers to include in the request"
+            description = "Extra headers merged into the request; values can be templated."
         )
         public Property<Map<String,String>> headers;
     }
