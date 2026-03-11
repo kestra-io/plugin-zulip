@@ -1,21 +1,23 @@
 package io.kestra.plugin.zulip;
 
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import org.apache.commons.io.IOUtils;
+
 import io.kestra.core.models.property.Property;
 import io.kestra.core.models.tasks.VoidOutput;
 import io.kestra.core.runners.RunContext;
 import io.kestra.core.serializers.JacksonMapper;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.apache.commons.io.IOUtils;
-
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @SuperBuilder
 @ToString
@@ -59,7 +61,6 @@ public abstract class ZulipTemplate extends ZulipIncomingWebhook {
     )
     protected Property<Map<String, Object>> templateRenderMap;
 
-
     @SuppressWarnings("unchecked")
     @Override
     public VoidOutput run(RunContext runContext) throws Exception {
@@ -72,9 +73,8 @@ public abstract class ZulipTemplate extends ZulipIncomingWebhook {
                 StandardCharsets.UTF_8
             );
 
-            String render = runContext.render(template, templateRenderMap != null ?
-                runContext.render(templateRenderMap).asMap(String.class, Object.class) :
-                Map.of()
+            String render = runContext.render(
+                template, templateRenderMap != null ? runContext.render(templateRenderMap).asMap(String.class, Object.class) : Map.of()
             );
             map = (Map<String, Object>) JacksonMapper.ofJson().readValue(render, Object.class);
         }
