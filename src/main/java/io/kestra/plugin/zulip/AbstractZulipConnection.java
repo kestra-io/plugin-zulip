@@ -31,7 +31,7 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
         title = "HTTP client options",
         description = "Tune headers, charsets, and timeouts used by the Zulip HTTP calls. Leave empty to use Kestra defaults."
     )
-    @PluginProperty(dynamic = true)
+    @PluginProperty(dynamic = true, group = "advanced")
     protected RequestOptions options;
 
     protected HttpConfiguration httpClientConfigurationWithOptions() throws IllegalVariableEvaluationException {
@@ -75,6 +75,7 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
             title = "Connect timeout",
             description = "Duration to open the TCP connection before failing."
         )
+        @PluginProperty(group = "execution")
         private final Property<Duration> connectTimeout;
 
         @Schema(
@@ -82,6 +83,7 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
             description = "Max time to read data before failing; default 10s."
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> readTimeout = Property.ofValue(Duration.ofSeconds(10));
 
         @Schema(
@@ -89,6 +91,7 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
             description = "Allowed idle time on an open read connection before closing; default 5 minutes."
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> readIdleTimeout = Property.ofValue(Duration.of(5, ChronoUnit.MINUTES));
 
         @Schema(
@@ -96,6 +99,7 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
             description = "How long an idle pooled connection stays open before eviction; default 0s."
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Duration> connectionPoolIdleTimeout = Property.ofValue(Duration.ofSeconds(0));
 
         @Schema(
@@ -103,6 +107,7 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
             description = "Maximum response body size in bytes; default 10 MB."
         )
         @Builder.Default
+        @PluginProperty(group = "execution")
         private final Property<Integer> maxContentLength = Property.ofValue(1024 * 1024 * 10);
 
         @Schema(
@@ -110,12 +115,14 @@ public abstract class AbstractZulipConnection extends Task implements RunnableTa
             description = "Charset used when none is provided by the response; default UTF-8."
         )
         @Builder.Default
+        @PluginProperty(group = "advanced")
         private final Property<Charset> defaultCharset = Property.ofValue(StandardCharsets.UTF_8);
 
         @Schema(
             title = "HTTP headers",
             description = "Extra headers merged into the request; values can be templated."
         )
+        @PluginProperty(group = "advanced")
         public Property<Map<String, String>> headers;
     }
 }
