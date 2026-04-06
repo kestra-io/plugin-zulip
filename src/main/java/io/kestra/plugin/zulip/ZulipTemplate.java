@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import io.kestra.core.models.annotations.PluginProperty;
 
 @SuperBuilder
 @ToString
@@ -29,36 +30,42 @@ public abstract class ZulipTemplate extends ZulipIncomingWebhook {
         title = "Channel destination",
         description = "Optional stream or topic to target; overrides channel defined in the rendered template."
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> channel;
 
     @Schema(
         title = "Message author",
         description = "Overrides the displayed sender name for this message."
     )
+    @PluginProperty(group = "connection")
     protected Property<String> username;
 
     @Schema(
         title = "Icon URL",
         description = "HTTP URL for avatar shown with the message; ignored if emoji is set."
     )
+    @PluginProperty(group = "connection")
     protected Property<String> iconUrl;
 
     @Schema(
         title = "Icon emoji",
         description = "Emoji code to display as avatar instead of an image URL."
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> iconEmoji;
 
     @Schema(
         title = "Template resource",
         hidden = true
     )
+    @PluginProperty(group = "advanced")
     protected Property<String> templateUri;
 
     @Schema(
         title = "Template variables",
         description = "Key-value map rendered into the Pebble template before sending."
     )
+    @PluginProperty(group = "advanced")
     protected Property<Map<String, Object>> templateRenderMap;
 
     @SuppressWarnings("unchecked")

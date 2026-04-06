@@ -105,7 +105,7 @@ public class ZulipIncomingWebhook extends AbstractZulipConnection {
         title = "Zulip incoming webhook URL",
         description = "Full incoming webhook URL (integration path and API key); render from a secret. See [Incoming Webhook Integrations](https://zulip.com/api/incoming-webhooks-overview) for formats."
     )
-    @PluginProperty(dynamic = true)
+    @PluginProperty(dynamic = true, group = "main")
     @NotEmpty
     private String url;
 
@@ -113,6 +113,7 @@ public class ZulipIncomingWebhook extends AbstractZulipConnection {
         title = "Zulip message payload",
         description = "Rendered JSON body sent as-is to the incoming webhook; follow Zulip payload schema for your integration."
     )
+    @PluginProperty(group = "main")
     protected Property<String> payload;
 
     @Override
