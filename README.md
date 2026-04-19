@@ -35,39 +35,18 @@
 </p>
 <p align="center" style="color:grey;"><i>Get started with Kestra in 3 minutes.</i></p>
 
-
 # Kestra Zulip Plugin
 
-> Send messages to [Zulip](https://zulip.com/) streams and topics from your Kestra workflows. Automate team communication and pipeline notifications in your Zulip organization.
+## Why
 
+- What user problem does this solve? Teams need to send messages to Zulip streams or users from orchestrated workflows instead of relying on manual console work, ad hoc scripts, or disconnected schedulers.
+- Why would a team adopt this plugin in a workflow? It keeps Zulip steps in the same Kestra flow as upstream preparation, approvals, retries, notifications, and downstream systems.
+- What operational/business outcome does it enable? It reduces manual handoffs and fragmented tooling while improving reliability, traceability, and delivery speed for processes that depend on Zulip.
 
-![Kestra orchestrator](https://kestra.io/video.gif)
+## What
 
-## Running the project in local
-### Prerequisites
-- Java 21
-- Docker
-
-### Running tests
-```
-./gradlew check --parallel
-```
-
-### Development
-
-`VSCode`:
-
-Follow the README.md within the `.devcontainer` folder for a quick and easy way to get up and running with developing plugins if you are using VSCode.
-
-`Other IDEs`:
-
-```
-./gradlew shadowJar && docker build -t kestra-custom . && docker run --rm -p 8080:8080 kestra-custom server local
-```
-> [!NOTE]
-> You need to relaunch this whole command everytime you make a change to your plugin
-
-go to http://localhost:8080, your plugin will be available to use
+- Provides plugin components under `io.kestra.plugin.zulip`.
+- Includes classes such as `ZulipIncomingWebhook`, `ZulipExecution`, `ZulipTemplate`.
 
 ## Documentation
 * Full documentation can be found under: [kestra.io/docs](https://kestra.io/docs)
