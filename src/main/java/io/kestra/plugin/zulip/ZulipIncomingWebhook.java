@@ -105,7 +105,7 @@ public class ZulipIncomingWebhook extends AbstractZulipConnection {
         title = "Zulip incoming webhook URL",
         description = "Full incoming webhook URL (integration path and API key); render from a secret. See [Incoming Webhook Integrations](https://zulip.com/api/incoming-webhooks-overview) for formats."
     )
-    @PluginProperty(dynamic = true, group = "main")
+    @PluginProperty(dynamic = true, group = "main", secret = true)
     @NotEmpty
     private String url;
 
