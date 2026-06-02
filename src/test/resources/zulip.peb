@@ -6,7 +6,7 @@
             "type": "section",
             "text": {
                 "type": "mrkdwn",
-                "text": {{ block.text | json }}
+                "text": {{ block.text | toJson }}
             }
         },
         {
@@ -15,7 +15,7 @@
                 {% for field in block.fields %}
                 {
                     "type": "mrkdwn",
-                    "text": {{ field | json }}
+                    "text": {{ field | toJson }}
                 }
                 {{ loop.last == 'false' ? ',' : '' }}
                 {% endfor %}
